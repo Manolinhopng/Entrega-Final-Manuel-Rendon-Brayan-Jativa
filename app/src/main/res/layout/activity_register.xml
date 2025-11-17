@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <!-- Logo más pequeño -->
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/gym_logo"
+        android:contentDescription="Logo de Gym Tracker"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Contenedor con fondo gris claro -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F0F0F0"
+        android:padding="16dp"
+        android:radius="8dp"
+        android:layout_marginBottom="24dp">
+
+        <!-- Nombre -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="¿Cómo te llamas?"
+            android:padding="8dp"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Edad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edad"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etEdad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="¿Cuántos años tienes?"
+            android:inputType="number"
+            android:padding="8dp"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ej: email@gmail.com"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Peso -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peso"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/etPeso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kilos"
+            android:inputType="numberDecimal"
+            android:padding="8dp"
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Genero -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genero"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinnerGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Aceptar términos -->
+        <CheckBox
+            android:id="@+id/checkTerms"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginBottom="24dp"
+            android:text="Aceptar términos y condiciones" />
+
+        <!-- Botón Registrarse -->
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrarse"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#000000" />
+
+    </LinearLayout>
+
+</LinearLayout>

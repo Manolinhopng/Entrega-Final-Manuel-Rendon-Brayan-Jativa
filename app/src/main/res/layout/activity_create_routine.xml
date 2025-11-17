@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Barra superior con título y botón de retroceso -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="24dp">
+
+        <!-- Botón de retroceso -->
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Salir" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Crear Entreno"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/llExerciseContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- Botón Guardar Rutina -->
+    <Button
+        android:id="@+id/btnAddExercise"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="24dp"
+        android:backgroundTint="#000000"
+        android:text="+"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp" />
+
+    <Button
+        android:id="@+id/btnSaveRoutine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Rutina"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#000000"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

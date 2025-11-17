@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- Barra superior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="#F5F5F5">
+
+        <TextView
+            android:id="@+id/tvRegisterTraining"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Registrar Entreno"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/tvTrainingHistory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Historial de Entrenos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_person"
+            android:contentDescription="Perfil"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+    <!-- Imagen de fondo -->
+
+    <!-- Sección de gráfico -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gym_image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#F5F5F5"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peso"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Gráfico (placeholder) -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/graph_placeholder"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Leyenda -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="#2196F3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Este mes"
+                android:textSize="14sp"
+                android:layout_marginLeft="8dp" />
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="#FFC107"
+                android:layout_marginLeft="24dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Último mes"
+                android:textSize="14sp"
+                android:layout_marginLeft="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Botón Salir -->
+    <LinearLayout
+        android:id="@+id/logoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Salir" />
+
+        <TextView
+            android:id="@+id/logoutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salir"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
