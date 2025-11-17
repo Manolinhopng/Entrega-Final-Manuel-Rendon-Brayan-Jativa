@@ -1,6 +1,7 @@
 package com.unicatolica.gymtracker.data
 
 data class User(
+    val id: String = "",
     val email: String,
     val name: String,
     val age: Int,

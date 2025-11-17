@@ -71,4 +71,15 @@
         android:padding="12dp"
         android:layout_marginBottom="16dp" />
 
+    <!-- 🔗 Enlace para registrarse -->
+    <TextView
+        android:id="@+id/tvRegisterLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿No tienes cuenta? Regístrate aquí"
+        android:textColor="#0000FF"
+        android:textSize="14sp"
+        android:clickable="true"
+        android:focusable="true" />
+
 </LinearLayout>

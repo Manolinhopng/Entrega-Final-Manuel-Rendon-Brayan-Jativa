@@ -17,15 +17,6 @@ interface ApiService {
     @GET("routines")
     suspend fun getRoutines(@Query("userId") userId: String): Response<List<Routine>>
 
-    @POST("routines")
-    suspend fun createRoutine(@Body routine: Routine): Response<Routine>
-
-    @GET("routines")
-    suspend fun getRoutines(@Query("userId") userId: String): Response<List<Routine>>
-
-    @POST("register")
-    suspend fun register(@Body user: User): Response<AuthResponse>
-
     @GET("profile/{userId}")
     suspend fun getProfile(@Path("userId") userId: String): Response<User>
 
@@ -34,5 +25,4 @@ interface ApiService {
         @Path("userId") userId: String,
         @Body user: User
     ): Response<User>
-
 }

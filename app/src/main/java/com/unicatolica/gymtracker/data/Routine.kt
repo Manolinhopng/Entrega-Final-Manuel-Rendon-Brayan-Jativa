@@ -8,9 +8,3 @@ data class Routine(
     val date: String,
     val exercises: List<Exercise> = emptyList()
 )
-
-data class Exercise(
-    val name: String,
-    val weight: String,
-    val reps: String
-)

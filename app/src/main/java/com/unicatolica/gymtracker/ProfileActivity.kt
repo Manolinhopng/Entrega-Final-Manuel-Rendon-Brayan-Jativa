@@ -92,7 +92,7 @@ class ProfileActivity : AppCompatActivity() {
             dietType = dieta
         ) ?: User(
             id = userId,
-            name = prefs.getString("userName", "Usuario"),
+            name = prefs.getString("userName", "Usuario") ?: "Usuario",
             age = 0,
             email = "",
             weight = peso,
