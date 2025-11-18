@@ -19,7 +19,6 @@ class TrainingHistoryActivity : AppCompatActivity() {
 
     private lateinit var llRoutinesContainer: LinearLayout
     private lateinit var btnSeeMore: Button
-    private lateinit var btnBack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,6 @@ class TrainingHistoryActivity : AppCompatActivity() {
 
         llRoutinesContainer = findViewById(R.id.llRoutinesContainer)
         btnSeeMore = findViewById(R.id.btnSeeMore)
-        btnBack = findViewById(R.id.btnBack)
 
         // Cargar rutinas reales desde el backend
         loadRoutinesFromBackend()
@@ -37,9 +35,7 @@ class TrainingHistoryActivity : AppCompatActivity() {
             // Aquí podrías implementar paginación en el futuro
         }
 
-        btnBack.setOnClickListener {
-            finish()
-        }
+
     }
 
     private fun loadRoutinesFromBackend() {

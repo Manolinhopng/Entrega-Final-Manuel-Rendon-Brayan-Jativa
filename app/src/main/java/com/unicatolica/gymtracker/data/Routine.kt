@@ -1,10 +1,22 @@
-package com.unicatolica.gymtracker.data
+// src/main/java/com/unicatolica/gymtracker/data/Routine.kt
+package com.unicatolica.gymtracker.data // Asegúrate de que esta sea tu package correcta
+
+import com.google.gson.annotations.SerializedName
+
+// Opcional: Modelo para timestamps de Firestore
+data class Timestamp(
+    @SerializedName("_seconds") val seconds: Long,
+    @SerializedName("_nanoseconds") val nanoseconds: Int
+)
 
 data class Routine(
-    val id: String = "", // Puede mantenerse como String si siempre se devuelve, o String? si puede ser null
-    val userId: String,  // Requerido
-    val name: String,    // Requerido
-    val duration: String?, // <-- Cambiado a String? si puede ser null
-    val date: String?,   // <-- Cambiado a String? si puede ser null
-    val exercises: List<Exercise> = emptyList()
+    @SerializedName("id") val id: String, // <-- Ahora es obligatorio recibirlo en la respuesta
+    @SerializedName("userId") val userId: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("duration") val duration: String?, // Puede ser null en la respuesta si no se calculó
+    @SerializedName("date") val date: String,
+    @SerializedName("exercises") val exercises: List<Exercise>, // <-- Kotlin ahora sabe qué es 'Exercise'
+    @SerializedName("createdAt") val createdAt: Timestamp?, // O Date si lo conviertes
+    @SerializedName("updatedAt") val updatedAt: Timestamp?, // O Date si lo conviertes
+    @SerializedName("completed") val completed: Boolean = false // Valor por defecto si no se envía
 )

@@ -12,8 +12,7 @@ interface ApiService {
     suspend fun register(@Body user: User): Response<AuthResponse>
 
     @POST("api/routines")
-    suspend fun createRoutine(@Body routine: Routine): Response<Routine>
-
+    suspend fun createRoutine(@Body routine: CreateRoutineRequest): Response<ApiResponse<Routine>>
     @GET("api/routines")
     suspend fun getRoutines(@Query("userId") userId: String): Response<RoutinesResponse>
     @GET("api/profile/{userId}")

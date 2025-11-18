@@ -1,3 +1,4 @@
+// src/main/java/com/unicatolica/gymtracker/CreateRoutineActivity.kt
 package com.unicatolica.gymtracker
 
 import android.content.Context
@@ -11,18 +12,19 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.unicatolica.gymtracker.api.ApiClient
+import com.unicatolica.gymtracker.data.CreateRoutineRequest
 import com.unicatolica.gymtracker.data.Exercise
 import com.unicatolica.gymtracker.data.Routine
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-
+import android.widget.ImageView
 class CreateRoutineActivity : AppCompatActivity() {
 
     private lateinit var llExerciseContainer: LinearLayout
     private lateinit var btnAddExercise: Button
     private lateinit var btnSaveRoutine: Button
-    private lateinit var btnBack: Button
+    private lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +80,6 @@ class CreateRoutineActivity : AppCompatActivity() {
                 return
             }
 
-            // ✅ Crear Exercise con el modelo simplificado
             exercises.add(Exercise(name, reps, weight))
         }
 
@@ -95,27 +96,35 @@ class CreateRoutineActivity : AppCompatActivity() {
             return
         }
 
-        // 3. Crear objeto Routine
-        val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
-        val routine = Routine(
+        // 3. Crear objeto para enviar (usando el nuevo modelo)
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Formato ISO
+        val requestRoutine = CreateRoutineRequest( // <-- Usar CreateRoutineRequest
             userId = userId,
             name = "Rutina del $currentDate",
-            duration = "00:00:00",
+            exercises = exercises,
             date = currentDate,
-            exercises = exercises
+            duration = "00:00:00" // O puedes calcularlo si implementas eso
         )
 
         // 4. Enviar al backend
         lifecycleScope.launch {
             try {
-                val response = ApiClient.apiService.createRoutine(routine)
-                if (response.isSuccessful && response.body() != null) {
-                    Toast.makeText(this@CreateRoutineActivity, "Rutina guardada correctamente", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@CreateRoutineActivity, DashboardActivity::class.java))
-                    finish()
+                // Enviar el objeto requestRoutine en lugar del modelo Routine
+                val response = ApiClient.apiService.createRoutine(requestRoutine)
+
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    if (apiResponse != null && apiResponse.success) {
+                        Toast.makeText(this@CreateRoutineActivity, apiResponse.message ?: "Rutina guardada correctamente", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@CreateRoutineActivity, DashboardActivity::class.java))
+                        finish()
+                    } else {
+                        val errorMsg = apiResponse?.message ?: "Error desconocido del servidor"
+                        Toast.makeText(this@CreateRoutineActivity, "Error: $errorMsg", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     val errorMsg = when (response.code()) {
-                        400 -> "Datos inválidos"
+                        400 -> "Datos inválidos (verifica campos)"
                         401 -> "No autorizado"
                         404 -> "Recurso no encontrado"
                         422 -> "Datos incompletos"
