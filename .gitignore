@@ -1,0 +1,34 @@
+# Dependencias
+node_modules/
+package-lock.json
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Credenciales de Firebase (NUNCA subir a Git)
+firebase-credentials.json
+**/firebase-credentials.json
+*-credentials.json
+fir-appmovile-firebase-adminsdk-*.json
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build
+dist/
+build/
+
