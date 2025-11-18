@@ -1,117 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center">
+    android:fillViewport="true">
 
-    <!-- Avatar y nombre -->
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/ic_person"
-        android:contentDescription="Avatar del usuario"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manuel Rendon"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp" />
-
-    <!-- Contenedor con fondo gris claro -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#F0F0F0"
-        android:padding="16dp"
-        android:radius="8dp"
-        android:layout_marginBottom="24dp">
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-        <!-- Peso -->
+        <!-- Avatar y nombre -->
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_person"
+            android:contentDescription="Avatar del usuario"
+            android:layout_marginBottom="8dp" />
+
         <TextView
+            android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Peso"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            android:text="Usuario"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp" />
 
-        <EditText
-            android:id="@+id/etPeso"
+        <!-- Contenedor con fondo gris claro -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="80 kg"
-            android:inputType="numberDecimal"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:background="#F0F0F0"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="4dp">
 
-        <!-- Estatura -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estatura"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Peso -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peso"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
 
-        <EditText
-            android:id="@+id/etEstatura"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="1.83 m"
-            android:inputType="numberDecimal"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/etPeso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp" />
 
-        <!-- Frecuencia de entrenamiento -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Frecuencia de entrenamiento"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Estatura -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estatura"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
 
-        <EditText
-            android:id="@+id/etFrecuencia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Diaria"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/etEstatura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:padding="8dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp" />
 
-        <!-- Tipo de dieta -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo de dieta"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Frecuencia -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frecuencia de entrenamiento"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
 
-        <EditText
-            android:id="@+id/etDieta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Vegetariana"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="24dp" />
+            <EditText
+                android:id="@+id/etFrecuencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="16dp" />
 
-        <!-- Botón Guardar -->
-        <Button
-            android:id="@+id/btnGuardar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#000000" />
+            <!-- Dieta -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de dieta"
+                android:textSize="16sp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etDieta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Botón Guardar -->
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#000000" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

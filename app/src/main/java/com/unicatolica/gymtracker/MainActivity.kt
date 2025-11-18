@@ -18,6 +18,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val prefs = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val userId = prefs.getString("userId", null)
+        val rememberMe = prefs.getBoolean("rememberMe", false)
+
+        if (userId != null && rememberMe) {
+            // Redirige automáticamente
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+            return
+        }
+
         setContentView(R.layout.activity_main)
 
         val editTextEmail = findViewById<EditText>(R.id.editTextEmail)
@@ -25,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         val checkBoxRememberMe = findViewById<CheckBox>(R.id.checkBoxRememberMe)
         val buttonLogin = findViewById<Button>(R.id.buttonLogin)
         val tvRegisterLink = findViewById<TextView>(R.id.tvRegisterLink)
+
+        checkBoxRememberMe.isChecked = rememberMe
 
         // Navegar a Registro
         tvRegisterLink.setOnClickListener {
@@ -45,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             // ✨ Llamada real al backend
             lifecycleScope.launch {
                 try {
-                    val response = ApiClient.service.login(LoginRequest(email, password))
+                    val response = ApiClient.apiService.login(LoginRequest(email, password))
 
                     if (response.isSuccessful && response.body()?.success == true) {
                         val userId = response.body()!!.userId!!
@@ -54,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                         getSharedPreferences("user_session", Context.MODE_PRIVATE)
                             .edit()
                             .putString("userId", userId)
+                            .putBoolean("rememberMe", checkBoxRememberMe.isChecked)
                             .apply()
 
                         Toast.makeText(this@MainActivity, "Login exitoso", Toast.LENGTH_SHORT).show()

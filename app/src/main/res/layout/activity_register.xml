@@ -3,131 +3,179 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
+    android:padding="16dp"
     android:gravity="center">
 
     <!-- Logo más pequeño -->
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/gym_logo"
         android:contentDescription="Logo de Gym Tracker"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="24dp" />
 
-    <!-- Contenedor con fondo gris claro -->
-    <LinearLayout
+    <!-- ScrollView para permitir desplazamiento -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#F0F0F0"
-        android:padding="16dp"
-        android:radius="8dp"
-        android:layout_marginBottom="24dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <!-- Nombre -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/etNombre"
+        <!-- Contenedor con fondo gris claro -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="¿Cómo te llamas?"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:background="#F0F0F0"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp">
 
-        <!-- Edad -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edad"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Nombre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
 
-        <EditText
-            android:id="@+id/etEdad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="¿Cuántos años tienes?"
-            android:inputType="number"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="¿Cómo te llamas?"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp" />
 
-        <!-- Email -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Edad -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edad"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ej: email@gmail.com"
-            android:inputType="textEmailAddress"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/etEdad"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="¿Cuántos años tienes?"
+                android:inputType="number"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp" />
 
-        <!-- Peso -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peso"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Email -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
 
-        <EditText
-            android:id="@+id/etPeso"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Kilos"
-            android:inputType="numberDecimal"
-            android:padding="8dp"
-            android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Ej: email@gmail.com"
+                android:inputType="textEmailAddress"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp" />
 
-        <!-- Genero -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Genero"
-            android:textSize="16sp"
-            android:layout_marginBottom="4dp" />
+            <!-- Contraseña -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contraseña"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
 
-        <Spinner
-            android:id="@+id/spinnerGenero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
-            android:padding="8dp"
-            android:layout_marginBottom="16dp" />
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Crea una contraseña"
+                android:inputType="textPassword"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp" />
 
-        <!-- Aceptar términos -->
-        <CheckBox
-            android:id="@+id/checkTerms"
-            android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:layout_marginBottom="24dp"
-            android:text="Aceptar términos y condiciones" />
+            <!-- Peso -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peso"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
 
-        <!-- Botón Registrarse -->
-        <Button
-            android:id="@+id/btnRegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrarse"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#000000" />
+            <EditText
+                android:id="@+id/etPeso"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Kilos"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Altura"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/etAltura"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Centímetros"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/edit_text_background"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Género -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Género"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
+
+            <Spinner
+                android:id="@+id/spinnerGenero"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edit_text_background"
+                android:padding="4dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Aceptar términos -->
+            <CheckBox
+                android:id="@+id/checkTerms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="Aceptar términos y condiciones"
+                android:textSize="14sp" />
+
+            <!-- Botón Registrarse -->
+            <Button
+                android:id="@+id/btnRegistrar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Registrarse"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#000000"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

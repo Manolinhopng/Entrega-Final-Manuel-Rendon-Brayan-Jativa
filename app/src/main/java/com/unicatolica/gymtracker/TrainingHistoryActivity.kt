@@ -1,3 +1,4 @@
+// src/main/java/com/unicatolica/gymtracker/TrainingHistoryActivity.kt
 package com.unicatolica.gymtracker
 
 import android.content.Context
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.unicatolica.gymtracker.api.ApiClient
 import com.unicatolica.gymtracker.data.Routine
+import com.unicatolica.gymtracker.data.RoutinesResponse // Importar el nuevo modelo
 import kotlinx.coroutines.launch
 
 class TrainingHistoryActivity : AppCompatActivity() {
@@ -51,15 +53,22 @@ class TrainingHistoryActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val response = ApiClient.service.getRoutines(userId)
+                val response = ApiClient.apiService.getRoutines(userId)
                 if (response.isSuccessful) {
-                    val routines = response.body() ?: emptyList()
-                    displayRoutines(routines)
+                    val responseBody = response.body()
+                    if (responseBody != null && responseBody.success) {
+                        // Accedemos a la lista de rutinas desde 'responseBody.routines'
+                        val routines = responseBody.routines
+                        displayRoutines(routines)
+                    } else {
+                        val errorMessage = responseBody?.message ?: "Error desconocido"
+                        Toast.makeText(this@TrainingHistoryActivity, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-                    Toast.makeText(this@TrainingHistoryActivity, "Error al cargar rutinas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@TrainingHistoryActivity, "Error HTTP ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@TrainingHistoryActivity, "Error de red", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@TrainingHistoryActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -88,8 +97,8 @@ class TrainingHistoryActivity : AppCompatActivity() {
             val tvDate = routineView.findViewById<TextView>(R.id.tvDate)
 
             tvName.text = routine.name
-            tvDuration.text = "Duración ${routine.duration}"
-            tvDate.text = "Fecha : ${routine.date}"
+            tvDuration.text = "Duración ${routine.duration ?: "N/A"}"
+            tvDate.text = "Fecha : ${routine.date ?: "N/A"}"
 
             llRoutinesContainer.addView(routineView)
         }

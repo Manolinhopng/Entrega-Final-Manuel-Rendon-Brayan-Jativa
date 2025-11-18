@@ -5,24 +5,25 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
-    @POST("login")
+    @POST("api/auth/login")
     suspend fun login(@Body req: LoginRequest): Response<AuthResponse>
 
-    @POST("register")
+    @POST("api/auth/register")
     suspend fun register(@Body user: User): Response<AuthResponse>
 
-    @POST("routines")
+    @POST("api/routines")
     suspend fun createRoutine(@Body routine: Routine): Response<Routine>
 
-    @GET("routines")
-    suspend fun getRoutines(@Query("userId") userId: String): Response<List<Routine>>
-
-    @GET("profile/{userId}")
-    suspend fun getProfile(@Path("userId") userId: String): Response<User>
+    @GET("api/routines")
+    suspend fun getRoutines(@Query("userId") userId: String): Response<RoutinesResponse>
+    @GET("api/profile/{userId}")
+    suspend fun getProfile(
+        @Path("userId") userId: String
+    ): Response<ApiResponse<User>>
 
     @PUT("profile/{userId}")
     suspend fun updateProfile(
         @Path("userId") userId: String,
         @Body user: User
-    ): Response<User>
+    ): Response<ApiResponse<Any>> // <-- Cambia aquí
 }

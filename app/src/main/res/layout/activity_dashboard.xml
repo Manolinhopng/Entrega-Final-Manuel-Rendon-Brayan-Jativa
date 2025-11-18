@@ -12,7 +12,8 @@
         android:orientation="horizontal"
         android:padding="16dp"
         android:gravity="center_vertical"
-        android:background="#F5F5F5">
+        android:background="#F5F5F5"
+        android:descendantFocusability="blocksDescendants">
 
         <TextView
             android:id="@+id/tvRegisterTraining"
@@ -23,9 +24,9 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:padding="8dp"
             android:clickable="true"
-            android:focusable="true"
-            android:padding="8dp" />
+            android:focusable="true"/>
 
         <TextView
             android:id="@+id/tvTrainingHistory"
@@ -36,18 +37,16 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:padding="8dp"
             android:clickable="true"
-            android:focusable="true"
-            android:padding="8dp" />
+            android:focusable="true"/>
 
         <ImageView
             android:id="@+id/ivProfile"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/ic_person"
-            android:contentDescription="Perfil"
-            android:layout_gravity="center_vertical" />
-
+            android:contentDescription="Perfil"/>
     </LinearLayout>
 
     <!-- Imagen de fondo -->
@@ -59,7 +58,8 @@
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:src="@drawable/gym_image" />
 
     <LinearLayout

@@ -59,16 +59,27 @@ class CreateRoutineActivity : AppCompatActivity() {
         val exercises = mutableListOf<Exercise>()
 
         for (i in 0 until llExerciseContainer.childCount) {
-            val view = llExerciseContainer.getChildAt(i) as LinearLayout
+            val view = llExerciseContainer.getChildAt(i)
             val name = view.findViewById<EditText>(R.id.etExerciseName).text.toString().trim()
-            val weight = view.findViewById<EditText>(R.id.etWeight).text.toString().trim()
-            val reps = view.findViewById<EditText>(R.id.etReps).text.toString().trim()
+            val weightStr = view.findViewById<EditText>(R.id.etWeight).text.toString().trim()
+            val repsStr = view.findViewById<EditText>(R.id.etReps).text.toString().trim()
 
-            if (name.isEmpty() || weight.isEmpty() || reps.isEmpty()) {
+            if (name.isEmpty() || weightStr.isEmpty() || repsStr.isEmpty()) {
                 Toast.makeText(this, "Completa todos los campos del ejercicio ${i + 1}", Toast.LENGTH_SHORT).show()
                 return
             }
-            exercises.add(Exercise(name, weight, reps))
+
+            // Convertir strings a números
+            val weight = weightStr.toDoubleOrNull()
+            val reps = repsStr.toIntOrNull()
+
+            if (weight == null || reps == null) {
+                Toast.makeText(this, "Peso y repeticiones deben ser números válidos", Toast.LENGTH_SHORT).show()
+                return
+            }
+
+            // ✅ Crear Exercise con el modelo simplificado
+            exercises.add(Exercise(name, reps, weight))
         }
 
         if (exercises.isEmpty()) {
@@ -89,7 +100,7 @@ class CreateRoutineActivity : AppCompatActivity() {
         val routine = Routine(
             userId = userId,
             name = "Rutina del $currentDate",
-            duration = "00:00:00", // Puedes calcularla si guardas tiempos
+            duration = "00:00:00",
             date = currentDate,
             exercises = exercises
         )
@@ -97,13 +108,20 @@ class CreateRoutineActivity : AppCompatActivity() {
         // 4. Enviar al backend
         lifecycleScope.launch {
             try {
-                val response = ApiClient.service.createRoutine(routine)
-                if (response.isSuccessful) {
+                val response = ApiClient.apiService.createRoutine(routine)
+                if (response.isSuccessful && response.body() != null) {
                     Toast.makeText(this@CreateRoutineActivity, "Rutina guardada correctamente", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@CreateRoutineActivity, DashboardActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this@CreateRoutineActivity, "Error al guardar la rutina", Toast.LENGTH_SHORT).show()
+                    val errorMsg = when (response.code()) {
+                        400 -> "Datos inválidos"
+                        401 -> "No autorizado"
+                        404 -> "Recurso no encontrado"
+                        422 -> "Datos incompletos"
+                        else -> "Error al guardar la rutina (Código: ${response.code()})"
+                    }
+                    Toast.makeText(this@CreateRoutineActivity, errorMsg, Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@CreateRoutineActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
