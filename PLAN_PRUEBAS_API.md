@@ -145,7 +145,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 #### 3.1 Obtener Perfil Existente ✅
 ```bash
 # Reemplaza USER_ID con el userId obtenido en el registro
-curl http://localhost:3000/api/profile/USER_ID
+curl http://localhost:3000/api/profile/LJKEThbpJ0e3p5z69cRg
 ```
 
 **Respuesta esperada (200):**
