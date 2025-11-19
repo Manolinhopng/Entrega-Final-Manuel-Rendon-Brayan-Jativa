@@ -319,6 +319,44 @@ const getTrainingStats = async (req, res) => {
   }
 };
 
+// Finalizar rutina
+const finishRoutine = async (req, res) => {
+  const { routineId } = req.params;
+  const { duration } = req.body; // "01:32:15" por ejemplo
+
+  if (!routineId) {
+    return res.status(400).json({ success: false, message: 'routineId es requerido' });
+  }
+
+  try {
+    const routineRef = req.app.locals.db.collection('routines').doc(routineId);
+    const routineDoc = await routineRef.get();
+
+    if (!routineDoc.exists) {
+      return res.status(404).json({ success: false, message: 'Rutina no encontrada' });
+    }
+
+    await routineRef.update({
+      completed: true,
+      duration: duration,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    res.json({
+      success: true,
+      message: 'Rutina finalizada correctamente'
+    });
+
+  } catch (error) {
+    console.error('Error en finishRoutine:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error al finalizar rutina: ' + error.message
+    });
+  }
+};
+
+
 const { admin } = require('../config/firebase');
 
 module.exports = {
@@ -326,5 +364,6 @@ module.exports = {
   createRoutine,
   updateRoutine,
   deleteRoutine,
-  getTrainingStats
+  getTrainingStats,
+  finishRoutine
 };
