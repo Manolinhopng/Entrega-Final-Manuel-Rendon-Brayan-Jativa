@@ -63,7 +63,7 @@ class EditRoutineActivity : AppCompatActivity() {
             try {
                 // ✅ Obtiene el userId de SharedPreferences
                 val prefs = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                val userId = prefs.getString("userId", null) // Asegúrate de que "userId" sea la clave correcta
+                val userId = prefs.getString("userId", null)
 
                 if (userId == null) {
                     Toast.makeText(this@EditRoutineActivity, "Error: Usuario no autenticado", Toast.LENGTH_SHORT).show()
@@ -72,7 +72,7 @@ class EditRoutineActivity : AppCompatActivity() {
                 }
 
                 // ✅ Llama a la API con el ID de la rutina y el ID del usuario
-                val response = ApiClient.apiService.getRoutineById(routineId!!, userId)
+                val response = ApiClient.apiService.getRoutineById(routineId!!, userId) // <-- Pasa el userId
 
                 println("DEBUG: Respuesta de API recibida. Code: ${response.code()}, Body: ${response.body()}")
                 if (response.isSuccessful && response.body()?.success == true && response.body()?.routine != null) {

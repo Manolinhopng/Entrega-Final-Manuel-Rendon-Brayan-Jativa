@@ -217,9 +217,10 @@ class TrainingHistoryActivity : AppCompatActivity() {
             view.findViewById<TextView>(R.id.tvDate).text = "Fecha: ${routine.date ?: "N/A"}"
 
             // 🔥 Evento: abrir pantalla para editar
+// En TrainingHistoryActivity.kt
             view.setOnClickListener {
                 val intent = Intent(this, EditRoutineActivity::class.java)
-                intent.putExtra("routineId", routine.id)
+                intent.putExtra("routineId", routine.id) // <-- Aquí se pasa el ID
                 startActivity(intent)
             }
 
