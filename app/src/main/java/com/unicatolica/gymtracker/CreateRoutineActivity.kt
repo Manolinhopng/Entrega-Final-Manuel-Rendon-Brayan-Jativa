@@ -8,33 +8,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.unicatolica.gymtracker.api.ApiClient
 import com.unicatolica.gymtracker.data.CreateRoutineRequest
 import com.unicatolica.gymtracker.data.Exercise
-import com.unicatolica.gymtracker.data.Routine
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import android.widget.ImageView
+
 class CreateRoutineActivity : AppCompatActivity() {
 
     private lateinit var llExerciseContainer: LinearLayout
     private lateinit var btnAddExercise: Button
     private lateinit var btnSaveRoutine: Button
     private lateinit var btnBack: ImageView
+    private lateinit var etDuration: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_routine)
 
+        // Inicializar vistas
         llExerciseContainer = findViewById(R.id.llExerciseContainer)
         btnAddExercise = findViewById(R.id.btnAddExercise)
         btnSaveRoutine = findViewById(R.id.btnSaveRoutine)
         btnBack = findViewById(R.id.btnBack)
+        etDuration = findViewById(R.id.etDuration)
 
+        // Agregar primer ejercicio por defecto
         addExerciseBlock()
 
         btnAddExercise.setOnClickListener {
@@ -50,18 +54,27 @@ class CreateRoutineActivity : AppCompatActivity() {
         }
     }
 
+    /** Agrega dinámicamente un bloque de ejercicio */
     private fun addExerciseBlock() {
         val inflater = LayoutInflater.from(this)
-        val exerciseView = inflater.inflate(R.layout.item_exercise, llExerciseContainer, false)
+        val exerciseView =
+            inflater.inflate(R.layout.item_exercise, llExerciseContainer, false)
         llExerciseContainer.addView(exerciseView)
     }
 
+    /** Envía al backend la rutina creada */
     private fun sendRoutineToBackend() {
-        // 1. Validar y recolectar ejercicios
+
+        // Obtener duración ingresada
+        val durationInput = etDuration.text.toString().trim()
+        val finalDuration = if (durationInput.isEmpty()) "00:30:00" else durationInput
+
+        // Validar y recolectar ejercicios
         val exercises = mutableListOf<Exercise>()
 
         for (i in 0 until llExerciseContainer.childCount) {
             val view = llExerciseContainer.getChildAt(i)
+
             val name = view.findViewById<EditText>(R.id.etExerciseName).text.toString().trim()
             val weightStr = view.findViewById<EditText>(R.id.etWeight).text.toString().trim()
             val repsStr = view.findViewById<EditText>(R.id.etReps).text.toString().trim()
@@ -71,7 +84,6 @@ class CreateRoutineActivity : AppCompatActivity() {
                 return
             }
 
-            // Convertir strings a números
             val weight = weightStr.toDoubleOrNull()
             val reps = repsStr.toIntOrNull()
 
@@ -88,52 +100,88 @@ class CreateRoutineActivity : AppCompatActivity() {
             return
         }
 
-        // 2. Obtener userId del almacenamiento local
+        // Obtener userId
         val prefs = getSharedPreferences("user_session", Context.MODE_PRIVATE)
         val userId = prefs.getString("userId", null)
+
         if (userId == null) {
             Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // 3. Crear objeto para enviar (usando el nuevo modelo)
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) // Formato ISO
-        val requestRoutine = CreateRoutineRequest( // <-- Usar CreateRoutineRequest
+        // Crear objeto para enviar
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+        val requestRoutine = CreateRoutineRequest(
             userId = userId,
             name = "Rutina del $currentDate",
             exercises = exercises,
             date = currentDate,
-            duration = "00:00:00" // O puedes calcularlo si implementas eso
+            duration = finalDuration
         )
 
-        // 4. Enviar al backend
+        // Enviar al backend
         lifecycleScope.launch {
             try {
-                // Enviar el objeto requestRoutine en lugar del modelo Routine
                 val response = ApiClient.apiService.createRoutine(requestRoutine)
 
                 if (response.isSuccessful) {
                     val apiResponse = response.body()
+
                     if (apiResponse != null && apiResponse.success) {
-                        Toast.makeText(this@CreateRoutineActivity, apiResponse.message ?: "Rutina guardada correctamente", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this@CreateRoutineActivity, DashboardActivity::class.java))
-                        finish()
+                        val routineId = apiResponse.data?.id
+
+                        if (routineId != null) {
+                            // ✅ Rutina creada, ahora la marcamos como completada
+                            markRoutineAsCompleted(routineId, finalDuration)
+                        } else {
+                            Toast.makeText(this@CreateRoutineActivity, "Error: ID de rutina no recibido", Toast.LENGTH_SHORT).show()
+                        }
+
                     } else {
-                        val errorMsg = apiResponse?.message ?: "Error desconocido del servidor"
-                        Toast.makeText(this@CreateRoutineActivity, "Error: $errorMsg", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@CreateRoutineActivity, apiResponse?.message ?: "Error desconocido", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    val errorMsg = when (response.code()) {
-                        400 -> "Datos inválidos (verifica campos)"
+                    val msg = when (response.code()) {
+                        400 -> "Datos inválidos"
                         401 -> "No autorizado"
-                        404 -> "Recurso no encontrado"
+                        404 -> "No encontrado"
                         422 -> "Datos incompletos"
-                        else -> "Error al guardar la rutina (Código: ${response.code()})"
+                        else -> "Error (código ${response.code()})"
                     }
-                    Toast.makeText(this@CreateRoutineActivity, errorMsg, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@CreateRoutineActivity, msg, Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@CreateRoutineActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun markRoutineAsCompleted(routineId: String, duration: String) {
+        lifecycleScope.launch {
+            try {
+                // ✅ Convertir los valores a String
+                val updateData = mapOf(
+                    "completed" to true.toString(), // <-- Convertido a String ("true")
+                    "duration" to duration          // <-- Ya es String
+                )
+                val response = ApiClient.apiService.updateRoutine(routineId, updateData)
+
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    if (apiResponse != null && apiResponse.success) {
+                        Toast.makeText(this@CreateRoutineActivity, "Rutina creada y marcada como completada", Toast.LENGTH_SHORT).show()
+                        // ✅ Navegar al DashboardActivity
+                        startActivity(Intent(this@CreateRoutineActivity, DashboardActivity::class.java))
+                        // ✅ Opcional: finish() para que al presionar "back" desde el Dashboard no vuelva a la creación
+                        finish()
+                    } else {
+                        Toast.makeText(this@CreateRoutineActivity, "Rutina creada, pero error al marcar como completada: ${apiResponse?.message}", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    Toast.makeText(this@CreateRoutineActivity, "Rutina creada, pero error HTTP al marcar como completada: ${response.code()}", Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@CreateRoutineActivity, "Rutina creada, pero error de red al marcar como completada: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

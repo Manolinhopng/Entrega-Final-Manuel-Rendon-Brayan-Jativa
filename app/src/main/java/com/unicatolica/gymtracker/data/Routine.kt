@@ -1,9 +1,7 @@
-// src/main/java/com/unicatolica/gymtracker/data/Routine.kt
 package com.unicatolica.gymtracker.data // Asegúrate de que esta sea tu package correcta
 
 import com.google.gson.annotations.SerializedName
 
-// Opcional: Modelo para timestamps de Firestore
 data class Timestamp(
     @SerializedName("_seconds") val seconds: Long,
     @SerializedName("_nanoseconds") val nanoseconds: Int

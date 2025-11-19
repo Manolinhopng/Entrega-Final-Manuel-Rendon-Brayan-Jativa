@@ -2,8 +2,8 @@ package com.unicatolica.gymtracker.data
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiResponse<T>(
+data class RoutineResponse(
     @SerializedName("success") val success: Boolean,
     @SerializedName("message") val message: String?,
-    @SerializedName("data") val data: T?
+    @SerializedName("routine") val routine: Routine // <-- Aquí es donde se espera el objeto Routine
 )

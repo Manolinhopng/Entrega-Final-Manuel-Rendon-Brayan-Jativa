@@ -2,6 +2,7 @@ package com.unicatolica.gymtracker.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import android.content.Context
 
 object ApiClient {
     private const val BASE_URL = "https://entrega-final-manuel-rendon-brayan-jativa-production.up.railway.app/"

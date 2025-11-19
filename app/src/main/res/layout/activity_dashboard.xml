@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="12dp"
         android:gravity="center_vertical"
         android:background="#F5F5F5"
         android:descendantFocusability="blocksDescendants">
@@ -21,10 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Registrar Entreno"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="6dp"
             android:clickable="true"
             android:focusable="true"/>
 
@@ -33,107 +33,205 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Historial de Entrenos"
-            android:textSize="18sp"
+            android:text="Historial"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="6dp"
             android:clickable="true"
             android:focusable="true"/>
 
         <ImageView
             android:id="@+id/ivProfile"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:src="@drawable/ic_person"
             android:contentDescription="Perfil"/>
     </LinearLayout>
 
-    <!-- Imagen de fondo -->
-
-    <!-- Sección de gráfico -->
-
-    <ImageView
+    <!-- Contenedor principal (con ScrollView para evitar que el logout se esconda) -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:src="@drawable/gym_image" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="#F5F5F5"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="24dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peso"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#EEEEEE"
-            android:scaleType="fitXY"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Leyenda -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
 
-            <View
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="#2196F3" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Este mes"
-                android:textSize="14sp"
-                android:layout_marginLeft="8dp" />
+            <!-- Imagen de fondo -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:src="@drawable/gym_image" />
 
-            <View
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="#FFC107"
-                android:layout_marginLeft="24dp" />
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Gráfico de Peso -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Último mes"
-                android:textSize="14sp"
-                android:layout_marginLeft="8dp" />
+                android:orientation="vertical"
+                android:paddingVertical="12dp"
+                android:background="#F5F5F5"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peso"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="6dp" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chartWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginBottom="6dp" />
+
+                <!-- Leyenda -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#2196F3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Este mes"
+                        android:textSize="12sp"
+                        android:layout_marginStart="6dp" />
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="#FFC107"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Último mes"
+                        android:textSize="12sp"
+                        android:layout_marginStart="6dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Estadísticas -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTotalSessions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Entrenamientos"
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTotalTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0h 0m"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiempo total"
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTotalWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 kg"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Peso total"
+                        android:textSize="12sp"
+                        android:textColor="#666666"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-
-    <!-- Botón Salir -->
+    <!-- Botón Salir (fijo abajo, con padding suave) -->
     <LinearLayout
         android:id="@+id/logoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:orientation="horizontal"
-        android:padding="16dp"
         android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:background="#F5F5F5">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_back"
             android:contentDescription="Salir" />
 
@@ -142,9 +240,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Salir"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginStart="8dp"
+            android:textColor="#333333"/>
 
     </LinearLayout>
 
