@@ -37,7 +37,7 @@ interface ApiService {
     @GET("api/routines/{id}")
     suspend fun getRoutineById(
         @Path("id") id: String,
-        @Query("userId") userId: String
+        @Query("userId") userId: String // <-- Este parámetro es crucial
     ): Response<RoutineResponse>
 
     // ---------------- UPDATE ROUTINE ----------------

@@ -57,11 +57,10 @@ class EditRoutineActivity : AppCompatActivity() {
     }
 
     // 📌 Cargar la rutina desde el backend (Definición única)
+// En EditRoutineActivity.kt
     private fun loadRoutineDetails() {
-        println("DEBUG: loadRoutineDetails llamado con routineId: $routineId")
         lifecycleScope.launch {
             try {
-                // ✅ Obtiene el userId de SharedPreferences
                 val prefs = getSharedPreferences("user_session", Context.MODE_PRIVATE)
                 val userId = prefs.getString("userId", null)
 
@@ -72,25 +71,15 @@ class EditRoutineActivity : AppCompatActivity() {
                 }
 
                 // ✅ Llama a la API con el ID de la rutina y el ID del usuario
-                val response = ApiClient.apiService.getRoutineById(routineId!!, userId) // <-- Pasa el userId
+                val response = ApiClient.apiService.getRoutineById(routineId!!, userId)
 
-                println("DEBUG: Respuesta de API recibida. Code: ${response.code()}, Body: ${response.body()}")
                 if (response.isSuccessful && response.body()?.success == true && response.body()?.routine != null) {
-                    loadedRoutine = response.body()!!.routine
-                    etName.setText(loadedRoutine!!.name)
-                    etDuration.setText(loadedRoutine!!.duration ?: "")
-                    etDate.setText(loadedRoutine!!.date ?: "")
-                    println("DEBUG: Datos cargados exitosamente")
+                    // ... procesa los datos ...
                 } else {
-                    println("DEBUG: Carga fallida. Success: ${response.body()?.success}, Routine: ${response.body()?.routine}")
-                    Toast.makeText(this@EditRoutineActivity, "Error al cargar datos: ${response.body()?.message}", Toast.LENGTH_SHORT).show()
-                    finish()
+                    // ... maneja el error ...
                 }
             } catch (e: Exception) {
-                println("DEBUG: Excepción en loadRoutineDetails: ${e.message}")
-                Log.e("EditRoutineActivity", "Error en loadRoutineDetails", e)
-                Toast.makeText(this@EditRoutineActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                finish()
+                // ... maneja la excepción ...
             }
         }
     }
