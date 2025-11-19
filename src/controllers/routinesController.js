@@ -229,12 +229,102 @@ const deleteRoutine = async (req, res) => {
   }
 };
 
-// Importante: Necesitas importar admin
+
+const getTrainingStats = async (req, res) => {
+  const { userId } = req.query; // O req.params, dependiendo de cómo lo quieras enviar
+
+  if (!userId) {
+    return res.status(400).json({
+      success: false,
+      message: 'userId es requerido'
+    });
+  }
+
+  try {
+    console.log('Calculando estadísticas para userId:', userId);
+
+    // Consultar Firestore para rutinas COMPLETADAS del usuario
+    const snapshot = await req.app.locals.db.collection('routines')
+      .where('userId', '==', userId)
+      .where('completed', '==', true) // <-- Filtro crucial
+      .get();
+
+    if (snapshot.empty) {
+      // Devolver valores por defecto si no hay rutinas completadas
+      return res.json({
+        success: true,
+        stats: {
+          totalSessions: 0,
+          totalDurationSeconds: 0,
+          totalWeightLifted: 0.0
+        }
+      });
+    }
+
+    let totalSessions = 0;
+    let totalDurationSeconds = 0;
+    let totalWeightLifted = 0.0;
+
+    snapshot.forEach(doc => {
+      const routine = doc.data();
+
+      // 1. Contar rutina
+      totalSessions++;
+
+      // 2. Sumar duración
+      if (routine.duration) {
+        const durationParts = routine.duration.split(':');
+        if (durationParts.length === 3) {
+          const hours = parseInt(durationParts[0]) || 0;
+          const minutes = parseInt(durationParts[1]) || 0;
+          const seconds = parseInt(durationParts[2]) || 0;
+          totalDurationSeconds += (hours * 3600) + (minutes * 60) + seconds;
+        }
+      }
+
+      // 3. Sumar peso total
+      if (Array.isArray(routine.exercises)) {
+        routine.exercises.forEach(exercise => {
+          // Asegúrate de que weight y reps existan y sean números
+          const weight = parseFloat(exercise.weight) || 0;
+          const reps = parseInt(exercise.reps) || 0;
+          totalWeightLifted += weight * reps;
+        });
+      }
+    });
+
+    res.json({
+      success: true,
+      stats: {
+        totalSessions,
+        totalDurationSeconds,
+        totalWeightLifted
+      }
+    });
+
+  } catch (error) {
+    console.error('Error en getTrainingStats:', error);
+
+    if (error.code === 7) { // PERMISSION_DENIED
+      return res.status(403).json({
+        success: false,
+        message: 'No tienes permiso para acceder a estas estadísticas'
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: 'Error al calcular estadísticas: ' + error.message
+    });
+  }
+};
+
 const { admin } = require('../config/firebase');
 
-module.exports = { 
-  getRoutines, 
+module.exports = {
+  getRoutines,
   createRoutine,
-  updateRoutine, // Opcional: para actualizar rutinas
-  deleteRoutine  // Opcional: para eliminar rutinas
+  updateRoutine,
+  deleteRoutine,
+  getTrainingStats
 };
