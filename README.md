@@ -32,8 +32,8 @@ La aplicación está desarrollada con **Kotlin y Android XML Layouts** (Jetpack 
 
 | Nombre | Rol |
 |--------|-----|
-| **Manuel Fernando Rendón Orrego** | Desarrollador Frontend, UI/UX, Gestión de APIs |
-| **Brayan Arnaldo Jativa Cuarán** | Desarrollador Backend, Base de Datos, Exportación de Archivos |
+| **Manuel Fernando Rendón Orrego ID: 407384** | Desarrollador Frontend, UI/UX, Gestión de APIs |
+| **Brayan Arnaldo Jativa Cuarán ID: 407368** | Desarrollador Backend, Base de Datos, Exportación de Archivos |
 
 ---
 
