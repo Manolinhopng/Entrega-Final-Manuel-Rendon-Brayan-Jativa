@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "161476631679",
+    "project_id": "fir-appmovile",
+    "storage_bucket": "fir-appmovile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161476631679:android:addd2516e0b568ae10734a",
+        "android_client_info": {
+          "package_name": "com.example.firebasepractic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFrmLTa1Opg95uBQPYV-S21T2fSudrTjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161476631679:android:057f758bb6ebe57d10734a",
+        "android_client_info": {
+          "package_name": "com.unicatolica.gymtracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFrmLTa1Opg95uBQPYV-S21T2fSudrTjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
