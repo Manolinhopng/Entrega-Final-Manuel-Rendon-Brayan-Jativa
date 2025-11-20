@@ -62,13 +62,13 @@ app/
 ├── java/
 │   └── com.unicatolica.gymtracker/
 │       ├── api/
-│       │   ├── ApiClient.kt          # Cliente Retrofit
-│       │   └── ApiService.kt         # Interfaz de endpoints
+│       │   ├── ApiClient.kt        
+│       │   └── ApiService.kt        
 │       ├── data/
-│       │   ├── ApiRepository.kt      # Lógica de acceso a la API
-│       │   ├── Exercise.kt           # Modelo de ejercicio
-│       │   ├── Routine.kt            # Modelo de rutina
-│       │   ├── User.kt               # Modelo de usuario
+│       │   ├── ApiRepository.kt      
+│       │   ├── Exercise.kt          
+│       │   ├── Routine.kt            
+│       │   ├── User.kt               
 │       │   ├── CreateRoutineRequest.kt
 │       │   ├── LoginRequest.kt
 │       │   ├── RoutineResponse.kt
@@ -94,8 +94,6 @@ app/
 └── build.gradle.kts                  
 ```
 
-> ⚠️ **Nota importante**: La carpeta `viewmodel/` contiene **Activities**, no ViewModels. Para mejorar la organización, se recomienda renombrarla a `ui/activities/` en futuras versiones.
-
 ---
 
 ## ✅ Características Técnicas
@@ -113,23 +111,6 @@ app/
 | Manejo de errores | Toasts y respuestas HTTP controladas |
 | Internacionalización | `strings.xml` con soporte para múltiples idiomas |
 
----
-
-## 📸 Capturas de Pantalla (Opcional)
-
-> *Si tienes capturas de tu app, agrégalas aquí. Por ejemplo:*
-
-| Pantalla | Imagen |
-|----------|--------|
-| **Login** | ![Login](screenshots/login.png) |
-| **Registro** | ![Register](screenshots/register.png) |
-| **Dashboard** | ![Dashboard](screenshots/dashboard.png) |
-| **Historial** | ![History](screenshots/history.png) |
-| **Exportación** | ![Export](screenshots/export.png) |
-
-> 💡 *Crea una carpeta `screenshots/` en tu repo y sube las imágenes para mejorar la presentación.*
-
----
 
 ## 📚 Referencias
 
@@ -152,20 +133,7 @@ Haz un *Fork*, crea tu rama y envía un *Pull Request*.
 
 ---
 
-## 📬 Contacto
-
-Para dudas o soporte:  
-📧 manuel.rendon@unicatolica.edu.co  
-📧 brayan.jativa@unicatolica.edu.co  
-🔗 [GitHub Personal] | [LinkedIn]
-
----
-
 > 💡 **Nota final**: Esta app fue desarrollada como proyecto final académico. No utiliza publicidad ni recopila datos personales fuera del propósito de registro de entrenamientos. Todos los datos son propiedad del usuario.
 
 ---
 
-✅ **Listo para copiar y pegar en tu `README.md` de GitHub.**  
-Este formato se ve profesional, es fácil de leer y cumple con los estándares de repositorios académicos y profesionales.
-
-¿Quieres que te genere también un **archivo `screenshots/` con nombres de imágenes listos** o un **video de demostración en formato Markdown**? Solo dime y lo preparo.
